@@ -1,16 +1,8 @@
 /**
  * Variables Configuration
  * =======================
- * 
- * CENTRAL PLACE TO DEFINE ALL SHARED VARIABLES
- * 
- * This file defines all variables that can be shared across sections.
- * AI agents should read this file to understand what variables are available.
- * 
- * USAGE:
- * 1. Define variables here with their default values and metadata
- * 2. Use them in any section with: const x = useVar('variableName', defaultValue)
- * 3. Update them with: setVar('variableName', newValue)
+ *
+ * Sum of Consecutive Odd Numbers Lesson
  */
 
 import { type VarValue } from '@/stores';
@@ -51,110 +43,113 @@ export interface VariableDefinition {
     schema?: string;
 }
 
-/**
- * =====================================================
- * 🎯 DEFINE YOUR VARIABLES HERE
- * =====================================================
- * 
- * SUPPORTED TYPES:
- * 
- * 1. NUMBER (slider):
- *    { defaultValue: 5, type: 'number', min: 0, max: 10, step: 1 }
- * 
- * 2. TEXT (free text):
- *    { defaultValue: 'Hello', type: 'text', placeholder: 'Enter text...' }
- * 
- * 3. SELECT (dropdown):
- *    { defaultValue: 'sine', type: 'select', options: ['sine', 'cosine', 'tangent'] }
- * 
- * 4. BOOLEAN (toggle):
- *    { defaultValue: true, type: 'boolean' }
- * 
- * 5. ARRAY (list of numbers):
- *    { defaultValue: [1, 2, 3], type: 'array' }
- * 
- * 6. OBJECT (complex data):
- *    { defaultValue: { x: 5, y: 10 }, type: 'object', schema: '{ x: number, y: number }' }
- */
 export const variableDefinitions: Record<string, VariableDefinition> = {
-    // ========================================
-    // ADD YOUR VARIABLES HERE
-    // ========================================
-
-    // Uncomment and modify these examples for your lesson:
-
-    /*
     // ─────────────────────────────────────────
-    // NUMBER - Use with sliders
+    // MAIN INTERACTIVE VALUE: n (number of odd numbers to sum)
     // ─────────────────────────────────────────
-    myValue: {
-        defaultValue: 5,
+    numberOfOdds: {
+        defaultValue: 4,
         type: 'number',
-        label: 'My Value',
-        description: 'A number that controls something',
-        unit: 'm',           // optional unit display
-        min: 0,
+        label: 'Number of odd numbers (n)',
+        description: 'How many consecutive odd numbers to add, starting from 1',
+        min: 1,
         max: 10,
-        step: 0.5,
+        step: 1,
+        color: '#62D0AD', // Soft teal
     },
 
     // ─────────────────────────────────────────
-    // TEXT - Free text input
+    // DERIVED VALUES (readonly display)
     // ─────────────────────────────────────────
-    lessonTitle: {
-        defaultValue: 'My Lesson',
+    currentSum: {
+        defaultValue: 16,
+        type: 'number',
+        label: 'Current sum',
+        description: 'The sum of the first n odd numbers (computed)',
+        color: '#8E90F5', // Soft indigo
+    },
+
+    squareRoot: {
+        defaultValue: 4,
+        type: 'number',
+        label: 'Square root',
+        description: 'The square root of the current sum',
+        color: '#F7B23B', // Warm amber
+    },
+
+    // ─────────────────────────────────────────
+    // GNOMON VISUALIZATION STEP
+    // ─────────────────────────────────────────
+    gnomonStep: {
+        defaultValue: 1,
+        type: 'number',
+        label: 'Gnomon step',
+        description: 'Which L-shaped layer to highlight in the gnomon visualization',
+        min: 1,
+        max: 10,
+        step: 1,
+        color: '#AC8BF9', // Soft violet
+    },
+
+    // ─────────────────────────────────────────
+    // LINKED HIGHLIGHT GROUP
+    // ─────────────────────────────────────────
+    squareHighlight: {
+        defaultValue: '',
+        type: 'linkedHighlight',
+        label: 'Square highlight group',
+        description: 'For linking prose to visualization elements',
+        color: '#F8A0CD', // Soft rose
+    },
+
+    // ─────────────────────────────────────────
+    // ASSESSMENT QUESTIONS
+    // ─────────────────────────────────────────
+    answerSumFiveOdds: {
+        defaultValue: '',
         type: 'text',
-        label: 'Lesson Title',
-        description: 'The title of your lesson',
-        placeholder: 'Enter a title...',
+        label: 'Answer: Sum of first 5 odds',
+        description: 'Student answer for 1+3+5+7+9',
+        placeholder: '???',
+        correctAnswer: '25',
+        color: '#62D0AD',
     },
 
-    // ─────────────────────────────────────────
-    // SELECT - Dropdown with options
-    // ─────────────────────────────────────────
-    difficulty: {
-        defaultValue: 'medium',
+    answerSumSixOdds: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Answer: Sum of first 6 odds',
+        description: 'Student answer for 1+3+5+7+9+11',
+        placeholder: '???',
+        correctAnswer: '36',
+        color: '#8E90F5',
+    },
+
+    answerWhySquare: {
+        defaultValue: '',
         type: 'select',
-        label: 'Difficulty',
-        description: 'The difficulty level of the lesson',
-        options: ['easy', 'medium', 'hard', 'expert'],
+        label: 'Answer: Why perfect square',
+        description: 'Student answer for why the sum is always a perfect square',
+        placeholder: '???',
+        correctAnswer: 'Each odd number adds an L-shaped border to the square',
+        options: [
+            'It is a coincidence',
+            'Odd numbers are special',
+            'Each odd number adds an L-shaped border to the square',
+            'The formula requires it'
+        ],
+        color: '#F7B23B',
     },
 
-    // ─────────────────────────────────────────
-    // BOOLEAN - Toggle switch
-    // ─────────────────────────────────────────
-    showHints: {
-        defaultValue: true,
-        type: 'boolean',
-        label: 'Show Hints',
-        description: 'Toggle to show or hide hints',
+    answerNinthOdd: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Answer: 9th odd number',
+        description: 'Student answer for what the 9th odd number is',
+        placeholder: '???',
+        correctAnswer: '17',
+        color: '#AC8BF9',
     },
-
-    // ─────────────────────────────────────────
-    // ARRAY - List of numbers
-    // ─────────────────────────────────────────
-    dataPoints: {
-        defaultValue: [1, 4, 9, 16, 25],
-        type: 'array',
-        label: 'Data Points',
-        description: 'Y-values for plotting a graph',
-    },
-
-    // ─────────────────────────────────────────
-    // OBJECT - Complex structured data
-    // ─────────────────────────────────────────
-    graphSettings: {
-        defaultValue: { 
-            xMin: -10, 
-            xMax: 10, 
-            showGrid: true 
-        },
-        type: 'object',
-        label: 'Graph Settings',
-        description: 'Configuration for the graph display',
-        schema: '{ xMin: number, xMax: number, showGrid: boolean }',
-    },
-    */
 };
 
 /**
@@ -191,7 +186,6 @@ export const getDefaultValues = (): Record<string, VarValue> => {
 
 /**
  * Get number props for InlineScrubbleNumber from a variable definition.
- * Use with getVariableInfo(name) in blocks.tsx, or getExampleVariableInfo(name) in exampleBlocks.tsx.
  */
 export function numberPropsFromDefinition(def: VariableDefinition | undefined): {
     defaultValue?: number;
@@ -211,12 +205,7 @@ export function numberPropsFromDefinition(def: VariableDefinition | undefined): 
 }
 
 /**
- * Get cloze input props for InlineClozeInput from a variable definition.
- * Use with getVariableInfo(name) in blocks.tsx, or getExampleVariableInfo(name) in exampleBlocks.tsx.
- */
-/**
  * Get cloze choice props for InlineClozeChoice from a variable definition.
- * Use with getVariableInfo(name) in blocks.tsx.
  */
 export function choicePropsFromDefinition(def: VariableDefinition | undefined): {
     placeholder?: string;
@@ -233,7 +222,6 @@ export function choicePropsFromDefinition(def: VariableDefinition | undefined): 
 
 /**
  * Get toggle props for InlineToggle from a variable definition.
- * Use with getVariableInfo(name) in blocks.tsx.
  */
 export function togglePropsFromDefinition(def: VariableDefinition | undefined): {
     color?: string;
@@ -263,15 +251,6 @@ export function clozePropsFromDefinition(def: VariableDefinition | undefined): {
 
 /**
  * Get spot-color props for InlineSpotColor from a variable definition.
- * Extracts the `color` field.
- *
- * @example
- * <InlineSpotColor
- *     varName="radius"
- *     {...spotColorPropsFromDefinition(getVariableInfo('radius'))}
- * >
- *     radius
- * </InlineSpotColor>
  */
 export function spotColorPropsFromDefinition(def: VariableDefinition | undefined): {
     color: string;
@@ -283,16 +262,6 @@ export function spotColorPropsFromDefinition(def: VariableDefinition | undefined
 
 /**
  * Get linked-highlight props for InlineLinkedHighlight from a variable definition.
- * Extracts the `color` and `bgColor` fields.
- *
- * @example
- * <InlineLinkedHighlight
- *     varName="activeHighlight"
- *     highlightId="radius"
- *     {...linkedHighlightPropsFromDefinition(getVariableInfo('activeHighlight'))}
- * >
- *     radius
- * </InlineLinkedHighlight>
  */
 export function linkedHighlightPropsFromDefinition(def: VariableDefinition | undefined): {
     color?: string;
@@ -306,17 +275,6 @@ export function linkedHighlightPropsFromDefinition(def: VariableDefinition | und
 
 /**
  * Build the `variables` prop for FormulaBlock from variable definitions.
- *
- * Takes an array of variable names and returns the config map expected by
- * `<FormulaBlock variables={...} />`.
- *
- * @example
- * import { scrubVarsFromDefinitions } from './variables';
- *
- * <FormulaBlock
- *     latex="\scrub{mass} \times \scrub{accel}"
- *     variables={scrubVarsFromDefinitions(['mass', 'accel'])}
- * />
  */
 export function scrubVarsFromDefinitions(
     varNames: string[],
