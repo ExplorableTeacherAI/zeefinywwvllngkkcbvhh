@@ -8,6 +8,7 @@ initializeVariableColors(variableDefinitions);
 
 // Import sections
 import { introductionBlocks } from "./sections/Introduction";
+import { buildingThePatternBlocks } from "./sections/BuildingThePattern";
 
 /**
  * Sum of Consecutive Odd Numbers - Explorable Explanation
@@ -17,4 +18,5 @@ import { introductionBlocks } from "./sections/Introduction";
  */
 export const blocks: ReactElement[] = [
     ...introductionBlocks,
+    ...buildingThePatternBlocks,
 ];
